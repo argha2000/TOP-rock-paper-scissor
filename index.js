@@ -2,7 +2,6 @@ let computerPlay = () => {
   let choiceArray = ["ROCK", "PAPER", "SCISSOR"];
   const computerChoice =
     choiceArray[Math.floor(Math.random()) * choiceArray.length];
-  console.log(computerChoice);
   return computerChoice;
 };
 
@@ -30,18 +29,25 @@ let rockPaperScissor = function (playerChoice = "", computerChoice = "") {
 };
 
 function game() {
-  let numberOfRounds = Number(
-    prompt("Enter the no. of rounds you want to play!")
-  );
-  let playerChoice = prompt("Enter your choice(ROCK/PAPER/SCISSOR):");
-  playerChoice = playerChoice.toUpperCase();
-  console.log(playerChoice);
-  for (let i = 0; i < numberOfRounds; i++) {
-    let computerChoice = computerPlay();
-    let winner = rockPaperScissor(playerChoice, computerChoice);
-    alert(winner);
-    let answer = prompt("Do you wanna continue playing?");
-    if (answer.toUpperCase() !== "YES") break;
+  let numberOfRounds = prompt("Enter the no. of rounds you want to play!");
+  if (!isNaN(numberOfRounds)) {
+    for (let i = 0; i < Number(numberOfRounds); i++) {
+      let playerChoice = prompt("Enter your choice(rock/paper/scissor)");
+      playerChoice = playerChoice.toUpperCase();
+      let computerChoice = computerPlay();
+      let winner = rockPaperScissor(playerChoice, computerChoice);
+      alert(winner);
+      if (i != numberOfRounds - 1) {
+        let answer = prompt("Do you wanna continue playing?(yes/no)");
+        if (answer.toUpperCase() !== "YES") {
+          alert("Thank you for playing!");
+          break;
+        }
+      } else if (i == numberOfRounds - 1)
+        alert("The number of rounds is over! Thank you for playing!");
+    }
+  } else {
+    alert("Not a number! please reload the page and try again!");
   }
 }
 game();
